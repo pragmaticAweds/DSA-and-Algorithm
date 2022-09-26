@@ -1,32 +1,36 @@
-const arr = [1, 2, 3];
-
 const permutation = (arr) => {
-  const permutationResult = [];
-
-  const permutate = (nums, i) => {
-    if (i === nums.length - 1) {
-      console.log("at push", i);
-      permutationResult.push(nums.slice());
+  const results = [];
+  const helper = (arr, i) => {
+    console.log(`when i is ${i} `);
+    if (i === arr.length - 1) {
+      results.push(arr.slice());
+      console.log("Condition is true", results);
       return;
     }
-    for (let j = i; j < nums.length; j++) {
-      //swap i,j
-      [nums[i], nums[j]] = [nums[j], nums[i]];
-      //recursive call
-      console.log(`index of i at ${i} and index of j at ${j}`);
-      console.log("first swap", ([nums[i], nums[j]] = [nums[j], nums[i]]));
-      console.log("recursive call");
-      permutate(nums, i + 1);
-      //swap i,j
-      console.log("at end", ([nums[i], nums[j]] = [nums[j], nums[i]]));
+
+    for (let j = i; j < arr.length; j++) {
+      //before swap
+      console.log(`when j is at: ${j} i is at: ${i} and arr is:${arr}`);
+
+      //swap
+      console.log(`Recursive swap => ${([arr[i], arr[j]] = [arr[j], arr[i]])}`);
+
+      //after swap
+      console.log(`after swap => ${arr}`);
+
+      helper(arr, i + 1);
+      console.log(`i is at ${i}, call helper function, arr is now at ${arr}`);
+
+      console.log(`Main swap => ${([arr[i], arr[j]] = [arr[j], arr[i]])}`);
+
       console.log(
-        `index of i second swap at ${i} and index of j second swap at ${j}`
+        `Main swap => when j is at: ${j} i is at: ${i} and arr is:${arr}`
       );
-      [nums[i], nums[j]] = [nums[j], nums[i]];
     }
   };
-  permutate(arr, 0);
-  return permutationResult;
+
+  helper(arr, 0);
+  return results;
 };
 
-console.log(permutation(arr));
+console.log(permutation([1, 2, 3]));
